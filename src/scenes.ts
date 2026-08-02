@@ -1,105 +1,101 @@
 /**
- * The film. Eight states of one mind, keyed to scroll.
- * Everything in the world — forces, colour, camera, language — interpolates
- * continuously between these keys. Nothing snaps; the intelligence changes
- * state the way weather does.
+ * The film. Eight morphologies of one mind, keyed to scroll.
+ * Every number below interpolates continuously (colours through OKLab), so
+ * the world transmutes — nebular static → liquid filaments → neural web →
+ * attention bloom → mitosis → rivers → incandescence → afterglow — without
+ * a single cut. Nothing snaps. Nothing loops.
  */
+import { mixOklab, hex, type RGB } from "./gl/palette";
 
 export interface SceneKey {
-  /** forces on the field */
-  noise: number; // free chaos
-  cluster: number; // pull toward emerging structure
-  graph: number; // link rendering strength 0..1
-  flow: number; // directional streaming (routing)
-  collapse: number; // pull of everything toward the one point
-  focusGain: number; // how strongly cluster 0 outshines the rest
-  dimOthers: number; // how far the rest of the world recedes 0..1
-  linkDist: number;
-  /** camera */
-  camR: number; // orbit radius
-  camEl: number; // elevation (radians)
-  camDrift: number; // curiosity — how much the camera hunts salience
-  /** state colours */
-  cool: [number, number, number]; // the base of the world
-  live: [number, number, number]; // what the intelligence is doing right now
-  hot: [number, number, number]; // its most confident signals
-  /** language */
-  state: string; // telemetry state word
+  /* field behaviour */
+  flowAmp: number;    // how hard the fluid moves
+  flowScale: number;  // spatial frequency of the flow
+  swirl: number;      // rotational energy around the focus
+  attract: number;    // pull of everything toward the focus
+  decay: number;      // trail persistence (closer to 1 = longer liquid light)
+  nebula: number;     // background breath
+  /* structures */
+  moteEnergy: number; // how brightly the drifting signals burn
+  web: number;        // dendritic link growth 0..1
+  mitosis: number;    // cell-division behaviour 0..1
+  attention: number;  // the bloom that arrives BEFORE structure
+  core: number;       // the incandescent decision point 0..1
+  dimOthers: number;  // how far unchosen structures recede
+  /* grade */
+  cool: RGB; live: RGB; hot: RGB;
+  warm: number;       // cool↔warm breath of the whole frame
+  exposure: number;
+  /* language */
+  state: string;
   kicker?: string;
   headline?: string;
   sub?: string;
   align: "left" | "right" | "center";
 }
 
-const c = (hex: number): [number, number, number] => [
-  ((hex >> 16) & 255) / 255,
-  ((hex >> 8) & 255) / 255,
-  (hex & 255) / 255,
-];
-
-// the spectrum of thought
-export const BLUE = c(0x4d7ea8); // searching
-export const VIOLET = c(0x8b5cf6); // learning
-export const CYAN = c(0x38e1ff); // prediction
-export const EMERALD = c(0x2ed598); // qualification
-export const AMBER = c(0xffb021); // decision
-export const WHITE = c(0xffffff); // locked
-export const MAGENTA = c(0xe4529e); // anomaly
+export const BLUE = hex(0x3f6fa8);
+export const VIOLET = hex(0x7c4dff);
+export const CYAN = hex(0x2fe0ff);
+export const EMERALD = hex(0x22d493);
+export const AMBER = hex(0xffb021);
+export const WHITE = hex(0xf5f9ff);
+export const MAGENTA = hex(0xe4529e);
 
 export const SCENES: SceneKey[] = [
   {
-    // 1 — CHAOS. Millions of weak signals. No obvious structure.
-    noise: 1.0, cluster: 0.0, graph: 0.0, flow: 0, collapse: 0,
-    focusGain: 0, dimOthers: 0, linkDist: 0,
-    camR: 46, camEl: 0.1, camDrift: 0.25,
-    cool: BLUE, live: BLUE, hot: c(0x9db8cc),
-    state: "LISTENING",
+    // 1 — STATIC. Most of the market is noise.
+    flowAmp: 0.16, flowScale: 1.4, swirl: 0, attract: 0, decay: 0.938, nebula: 0.5,
+    moteEnergy: 0.5, web: 0, mitosis: 0, attention: 0, core: 0, dimOthers: 0,
+    cool: hex(0x27436b), live: BLUE, hot: hex(0x7fa3c8),
+    warm: 0, exposure: 1.0,
+    state: "SEARCHING",
     kicker: "AKAL — the infrastructure for customer acquisition",
     headline: "Most of the market is noise.",
     sub: "Right now, thousands of weak signals are moving. Almost none of them matter.",
     align: "left",
   },
   {
-    // 2 — PATTERNS begin appearing. The system recognizes relationships.
-    noise: 0.55, cluster: 0.38, graph: 0.12, flow: 0, collapse: 0,
-    focusGain: 0.05, dimOthers: 0, linkDist: 2.6,
-    camR: 38, camEl: 0.32, camDrift: 0.45,
-    cool: BLUE, live: VIOLET, hot: VIOLET,
-    state: "CORRELATING",
+    // 2 — FILAMENTS. Liquid light; the field starts flowing with intent.
+    flowAmp: 0.5, flowScale: 0.9, swirl: 0.25, attract: 0.02, decay: 0.965, nebula: 0.35,
+    moteEnergy: 0.85, web: 0.06, mitosis: 0, attention: 0, core: 0, dimOthers: 0,
+    cool: hex(0x33406e), live: VIOLET, hot: hex(0xa88bff),
+    warm: 0.04, exposure: 1.05,
+    state: "LEARNING",
     kicker: "// pattern memory",
     headline: "It learns the shape of intent.",
-    sub: "Relationships form between signals that have never met.",
+    sub: "Currents form between signals that have never met.",
     align: "right",
   },
   {
-    // 3 — CONNECTIONS strengthen. Noise disappears.
-    noise: 0.28, cluster: 0.75, graph: 0.7, flow: 0, collapse: 0,
-    focusGain: 0.18, dimOthers: 0.15, linkDist: 3.4,
-    camR: 30, camEl: 0.5, camDrift: 0.6,
-    cool: c(0x3a5f80), live: VIOLET, hot: CYAN,
+    // 3 — THE WEB. Dendrites grow; noise dies out.
+    flowAmp: 0.3, flowScale: 1.1, swirl: 0.12, attract: 0.06, decay: 0.955, nebula: 0.22,
+    moteEnergy: 0.55, web: 1.0, mitosis: 0, attention: 0, core: 0, dimOthers: 0.2,
+    cool: hex(0x2c3f63), live: hex(0x8f7bff), hot: CYAN,
+    warm: 0.06, exposure: 1.05,
     state: "CONNECTING",
     kicker: "// structure",
     headline: "Signal separates from noise.",
     align: "left",
   },
   {
-    // 4 — PREDICTION. The system saw it before you did.
-    noise: 0.18, cluster: 0.85, graph: 0.85, flow: 0.1, collapse: 0,
-    focusGain: 0.75, dimOthers: 0.35, linkDist: 3.6,
-    camR: 22, camEl: 0.42, camDrift: 1.0,
-    cool: c(0x2f4d6b), live: CYAN, hot: CYAN,
+    // 4 — ATTENTION. The bloom arrives before the structure does.
+    flowAmp: 0.34, flowScale: 1.0, swirl: 0.3, attract: 0.16, decay: 0.962, nebula: 0.18,
+    moteEnergy: 0.6, web: 0.85, mitosis: 0, attention: 1.0, core: 0, dimOthers: 0.35,
+    cool: hex(0x24456b), live: CYAN, hot: hex(0xbdf3ff),
+    warm: 0.08, exposure: 1.1,
     state: "PREDICTING",
     kicker: "// t minus",
     headline: "It was watching this one before you arrived.",
-    sub: "Prediction is not magic. It is attention, at a scale you can't hold.",
+    sub: "Prediction is attention, at a scale you can't hold.",
     align: "right",
   },
   {
-    // 5 — ONE OPPORTUNITY becomes undeniable. The world reorganizes.
-    noise: 0.1, cluster: 1.0, graph: 0.9, flow: 0.18, collapse: 0.04,
-    focusGain: 1.0, dimOthers: 0.66, linkDist: 3.2,
-    camR: 15, camEl: 0.3, camDrift: 1.0,
-    cool: c(0x27404f), live: EMERALD, hot: EMERALD,
+    // 5 — MITOSIS. Candidates divide and compete; one floods emerald.
+    flowAmp: 0.26, flowScale: 1.3, swirl: 0.4, attract: 0.22, decay: 0.957, nebula: 0.14,
+    moteEnergy: 0.5, web: 0.6, mitosis: 1.0, attention: 0.35, core: 0.05, dimOthers: 0.6,
+    cool: hex(0x1f4247), live: EMERALD, hot: hex(0xa5ffd9),
+    warm: 0.14, exposure: 1.1,
     state: "QUALIFYING",
     kicker: "// qualification",
     headline: "One opportunity becomes undeniable.",
@@ -107,69 +103,56 @@ export const SCENES: SceneKey[] = [
     align: "left",
   },
   {
-    // 6 — the system explains itself through motion. Routing.
-    noise: 0.08, cluster: 0.9, graph: 0.75, flow: 0.9, collapse: 0.1,
-    focusGain: 1.0, dimOthers: 0.8, linkDist: 2.8,
-    camR: 12, camEl: 0.16, camDrift: 0.9,
-    cool: c(0x223441), live: EMERALD, hot: AMBER,
+    // 6 — RIVERS. Flowing data bends toward the chosen one. Motion narrates.
+    flowAmp: 0.85, flowScale: 0.7, swirl: 0.7, attract: 0.5, decay: 0.968, nebula: 0.1,
+    moteEnergy: 0.95, web: 0.3, mitosis: 0.25, attention: 0.15, core: 0.25, dimOthers: 0.8,
+    cool: hex(0x233d46), live: EMERALD, hot: AMBER,
+    warm: 0.35, exposure: 1.12,
     state: "ROUTING",
     align: "center",
   },
   {
-    // 7 — DECISION. Everything collapses into one route, one action.
-    noise: 0.03, cluster: 0.2, graph: 0.2, flow: 0.35, collapse: 1.0,
-    focusGain: 1.0, dimOthers: 0.9, linkDist: 2.0,
-    camR: 10, camEl: 0.08, camDrift: 0.4,
-    cool: c(0x1d2733), live: AMBER, hot: WHITE,
+    // 7 — INCANDESCENCE. Everything drains into one point.
+    flowAmp: 0.5, flowScale: 0.8, swirl: 1.0, attract: 1.0, decay: 0.952, nebula: 0.08,
+    moteEnergy: 0.7, web: 0.08, mitosis: 0, attention: 0, core: 0.85, dimOthers: 0.95,
+    cool: hex(0x2b2e3c), live: AMBER, hot: WHITE,
+    warm: 0.85, exposure: 1.18,
     state: "DECIDING",
     kicker: "// resolution",
     headline: "One route. One action.",
     align: "center",
   },
   {
-    // 8 — INVITATION. The mind is calm. It is looking at you now.
-    noise: 0.1, cluster: 0.12, graph: 0.25, flow: 0.05, collapse: 0.35,
-    focusGain: 0.8, dimOthers: 0.6, linkDist: 3.0,
-    camR: 17, camEl: 0.22, camDrift: 0.2,
-    cool: c(0x21303e), live: AMBER, hot: WHITE,
-    state: "READY",
+    // 8 — AFTERGLOW. The mind is calm. It is looking at you now.
+    flowAmp: 0.22, flowScale: 1.0, swirl: 0.18, attract: 0.1, decay: 0.962, nebula: 0.3,
+    moteEnergy: 0.55, web: 0.35, mitosis: 0, attention: 0.1, core: 0.18, dimOthers: 0.55,
+    cool: hex(0x2c3550), live: hex(0xd7a15c), hot: WHITE,
+    warm: 0.5, exposure: 1.05,
+    state: "LISTENING",
     align: "left",
   },
 ];
 
 export const SCENE_COUNT = SCENES.length;
 
-/** Continuous scene sample at film time s ∈ [0, SCENE_COUNT-1]. */
+const L = (x: number, y: number, t: number) => x + (y - x) * t;
+
+/** Continuous sample at film time s ∈ [0, SCENE_COUNT-1]. */
 export function sample(s: number): SceneKey {
   const i = Math.min(SCENE_COUNT - 2, Math.max(0, Math.floor(s)));
   const f = Math.min(1, Math.max(0, s - i));
   const t = f * f * (3 - 2 * f);
-  const a = SCENES[i];
-  const b = SCENES[i + 1];
-  const L = (x: number, y: number) => x + (y - x) * t;
-  const LC = (x: [number, number, number], y: [number, number, number]): [number, number, number] => [
-    L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2]),
-  ];
+  const a = SCENES[i], b = SCENES[i + 1];
   const src = t < 0.5 ? a : b;
   return {
-    noise: L(a.noise, b.noise),
-    cluster: L(a.cluster, b.cluster),
-    graph: L(a.graph, b.graph),
-    flow: L(a.flow, b.flow),
-    collapse: L(a.collapse, b.collapse),
-    focusGain: L(a.focusGain, b.focusGain),
-    dimOthers: L(a.dimOthers, b.dimOthers),
-    linkDist: L(a.linkDist, b.linkDist),
-    camR: L(a.camR, b.camR),
-    camEl: L(a.camEl, b.camEl),
-    camDrift: L(a.camDrift, b.camDrift),
-    cool: LC(a.cool, b.cool),
-    live: LC(a.live, b.live),
-    hot: LC(a.hot, b.hot),
-    state: src.state,
-    kicker: src.kicker,
-    headline: src.headline,
-    sub: src.sub,
-    align: src.align,
+    flowAmp: L(a.flowAmp, b.flowAmp, t), flowScale: L(a.flowScale, b.flowScale, t),
+    swirl: L(a.swirl, b.swirl, t), attract: L(a.attract, b.attract, t),
+    decay: L(a.decay, b.decay, t), nebula: L(a.nebula, b.nebula, t),
+    moteEnergy: L(a.moteEnergy, b.moteEnergy, t), web: L(a.web, b.web, t),
+    mitosis: L(a.mitosis, b.mitosis, t), attention: L(a.attention, b.attention, t),
+    core: L(a.core, b.core, t), dimOthers: L(a.dimOthers, b.dimOthers, t),
+    cool: mixOklab(a.cool, b.cool, t), live: mixOklab(a.live, b.live, t), hot: mixOklab(a.hot, b.hot, t),
+    warm: L(a.warm, b.warm, t), exposure: L(a.exposure, b.exposure, t),
+    state: src.state, kicker: src.kicker, headline: src.headline, sub: src.sub, align: src.align,
   };
 }

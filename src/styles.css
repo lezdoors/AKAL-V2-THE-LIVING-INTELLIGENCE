@@ -1,0 +1,248 @@
+/* AKAL V2 — the living intelligence.
+   Ground: deep charcoal-midnight. Everything luminous comes from the mind. */
+
+:root {
+  --ground: #0a0d14;
+  --ink: #e9eef7;
+  --muted: #93a0b4;
+  --dim: #5b6b7d;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  background: var(--ground);
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: "Syne", system-ui, sans-serif;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.mono {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  line-height: 1.7;
+}
+
+#world {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+#track { height: 900vh; }
+
+/* ---------------- fixed chrome ---------------- */
+.chrome {
+  position: fixed;
+  left: 0; right: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 28px;
+  pointer-events: none;
+}
+.chrome-top { top: 0; }
+.chrome-bottom { bottom: 0; align-items: flex-end; }
+.wordmark {
+  font-weight: 800;
+  font-size: 19px;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+  text-decoration: none;
+  pointer-events: auto;
+}
+.chrome-cta {
+  color: var(--ink);
+  text-decoration: none;
+  border: 1px solid rgba(233, 238, 247, 0.25);
+  border-radius: 999px;
+  padding: 9px 18px;
+  pointer-events: auto;
+  transition: border-color 0.25s, background 0.25s;
+}
+.chrome-cta:hover { border-color: rgba(233, 238, 247, 0.7); background: rgba(233, 238, 247, 0.06); }
+
+#telemetry {
+  color: var(--muted);
+  text-align: left;
+  pointer-events: auto;
+  user-select: none;
+}
+#telemetry b { color: var(--ink); font-weight: 500; }
+#telemetry .chip { cursor: pointer; border-bottom: 1px dotted rgba(147, 160, 180, 0.5); }
+#telemetry .chip:hover { color: var(--ink); }
+#scene-index { color: var(--muted); }
+
+/* ---------------- the film's language ---------------- */
+#copy { position: fixed; inset: 0; z-index: 20; pointer-events: none; }
+
+.scene-copy {
+  position: absolute;
+  max-width: 36rem;
+  opacity: 0;
+  visibility: hidden;
+  padding: 2rem 2.2rem;
+  border-radius: 1.2rem;
+  /* the words sit in a pool of quiet so the mind never drowns them */
+  background: radial-gradient(
+    140% 150% at 32% 42%,
+    rgba(10, 13, 20, 0.7) 0%,
+    rgba(10, 13, 20, 0.38) 48%,
+    transparent 74%
+  );
+}
+.scene-copy.on { opacity: 1; visibility: visible; }
+.align-left  { left: max(6vw, 24px); top: 50%; transform: translateY(-50%); }
+.align-right { right: max(6vw, 24px); top: 50%; transform: translateY(-50%); text-align: left; }
+.align-center {
+  left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center;
+  max-width: none; width: 100vw; border-radius: 0; padding: 4rem 10vw;
+  background: linear-gradient(180deg, transparent 0%, rgba(10, 13, 20, 0.55) 28%, rgba(10, 13, 20, 0.55) 72%, transparent 100%);
+}
+
+.kicker { color: var(--muted); margin: 0 0 1rem; }
+
+.headline {
+  font-weight: 800;
+  font-size: clamp(2rem, 5.2vw, 4.2rem);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  margin: 0;
+  color: var(--ink);
+}
+.headline .w { display: inline-block; white-space: nowrap; }
+.headline .ch { display: inline-block; opacity: 0; will-change: opacity, transform, filter; }
+
+.sub {
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 30rem;
+  margin: 1.1rem 0 0;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.82rem;
+}
+.align-center .sub { margin-inline: auto; }
+
+/* ---------------- the invitation ---------------- */
+#invitation { pointer-events: auto; margin-top: 0.5rem; }
+#invitation .invite-headline { font-size: clamp(2rem, 4.2vw, 3.4rem); }
+#contact { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.4rem; max-width: 30rem; }
+#contact .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+#contact label {
+  display: flex; flex-direction: column; gap: 0.4rem;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+#contact input, #contact textarea {
+  background: rgba(233, 238, 247, 0.05);
+  border: 1px solid rgba(233, 238, 247, 0.16);
+  border-radius: 8px;
+  color: var(--ink);
+  padding: 0.6rem 0.7rem;
+  font: 400 14px "IBM Plex Mono", ui-monospace, monospace;
+  outline: none;
+  transition: border-color 0.2s;
+}
+#contact input:focus-visible, #contact textarea:focus-visible { border-color: #ffb021; }
+#contact button {
+  align-self: flex-start;
+  margin-top: 0.3rem;
+  background: linear-gradient(120deg, #ffb021, #ffd37a);
+  color: #17120a;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.75rem 1.5rem;
+  font: 700 14px "Syne", sans-serif;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.25s;
+}
+#contact button:hover { transform: translateY(-1px); box-shadow: 0 6px 30px rgba(255, 176, 33, 0.35); }
+#contact button:focus-visible { outline: 2px solid #ffd37a; outline-offset: 3px; }
+.form-note { color: var(--muted); margin: 0; }
+
+/* ---------------- the idle feed ---------------- */
+#feed {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  max-width: 300px;
+  color: var(--muted);
+  pointer-events: none;
+  transition: opacity 0.8s;
+}
+#feed.dim { opacity: 0.14; }
+.feed-line { margin: 0.35rem 0; animation: feedin 0.5s ease-out both; }
+.feed-line .stamp { color: rgba(147, 160, 180, 0.55); margin-right: 0.6em; }
+@keyframes feedin {
+  from { opacity: 0; transform: translateX(10px); filter: blur(3px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+/* ---------------- the dossier ---------------- */
+#dossier {
+  position: fixed;
+  z-index: 50;
+  min-width: 240px;
+  padding: 0.8rem 1rem 0.9rem;
+  border: 1px solid rgba(233, 238, 247, 0.14);
+  border-radius: 10px;
+  background: rgba(10, 13, 20, 0.85);
+  backdrop-filter: blur(6px);
+  color: var(--ink);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+}
+#dossier.on { opacity: 1; transform: none; }
+#dossier .charge {
+  height: 2px; background: rgba(233, 238, 247, 0.12);
+  border-radius: 2px; overflow: hidden; margin-bottom: 0.6rem;
+}
+#dossier .charge i {
+  display: block; height: 100%; background: #2fe0ff;
+  transform-origin: left; transform: scaleX(0); transition: transform 0.15s linear;
+}
+#dossier .ok { color: #22d493; }
+#dossier .hold { color: rgba(147, 160, 180, 0.8); }
+.dossier-lines div { line-height: 1.8; }
+
+/* ---------------- reduced motion: the still mind ---------------- */
+.reduced #copy { position: static; pointer-events: auto; }
+.reduced .scene-copy {
+  position: relative;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  left: auto !important; right: auto !important; top: auto !important;
+  margin: 18vh auto;
+}
+.reduced .scene-copy .ch { opacity: 1 !important; transform: none !important; filter: none !important; }
+.reduced #track { display: none; }
+.reduced #feed { display: none; }
+
+/* ---------------- small screens ---------------- */
+@media (max-width: 720px) {
+  .scene-copy { max-width: min(88vw, 32rem); padding: 1.4rem 1.5rem; }
+  .align-left, .align-right { left: 6vw; right: 6vw; }
+  #contact .row { grid-template-columns: 1fr; }
+  #feed { display: none; }
+  .chrome { padding: 16px 18px; }
+}
+
+::selection { background: rgba(255, 176, 33, 0.4); }
