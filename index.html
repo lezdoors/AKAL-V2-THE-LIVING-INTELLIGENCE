@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AKAL — The Living Intelligence</title>
+    <meta
+      name="description"
+      content="AKAL is the infrastructure for customer acquisition. Watch an intelligence organize chaos into one opportunity, one route, one action."
+    />
+    <meta name="theme-color" content="#0a0d14" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="AKAL — The Living Intelligence" />
+    <meta
+      property="og:description"
+      content="The infrastructure for customer acquisition. Signal separates from noise; one opportunity becomes undeniable."
+    />
+  </head>
+  <body>
+    <div id="app">
+      <!-- the world: one persistent canvas behind everything -->
+      <canvas id="world" aria-hidden="true"></canvas>
+      <div id="grain" aria-hidden="true"></div>
+
+      <!-- fixed chrome -->
+      <header class="chrome chrome-top">
+        <a class="wordmark" href="#top">AKAL</a>
+        <a class="chrome-cta mono" href="#invitation">Talk to us</a>
+      </header>
+      <div class="chrome chrome-bottom" aria-hidden="true">
+        <div id="telemetry" class="mono"></div>
+        <div id="scene-index" class="mono"></div>
+      </div>
+
+      <!-- the film's language: one block per scene, revealed as earned -->
+      <main id="copy" aria-label="AKAL"></main>
+
+      <!-- the scroll track -->
+      <div id="track"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
