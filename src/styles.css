@@ -54,13 +54,17 @@ body {
 .chrome-top { top: 0; }
 .chrome-bottom { bottom: 0; align-items: flex-end; }
 .wordmark {
-  font-weight: 800;
-  font-size: 19px;
-  letter-spacing: 0.14em;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.22em;
   color: var(--ink);
   text-decoration: none;
   pointer-events: auto;
 }
+.wordmark-a { height: 26px; width: auto; display: block; }
 .chrome-cta {
   color: var(--ink);
   text-decoration: none;
