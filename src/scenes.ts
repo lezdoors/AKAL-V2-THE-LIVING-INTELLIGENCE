@@ -45,10 +45,10 @@ export const MAGENTA = hex(0xe4529e);
 export const SCENES: SceneKey[] = [
   {
     // 1 — STATIC. Most of the market is noise.
-    flowAmp: 0.16, flowScale: 1.4, swirl: 0, attract: 0, decay: 0.938, nebula: 0.5,
-    moteEnergy: 0.5, web: 0, mitosis: 0, attention: 0, core: 0, dimOthers: 0,
+    flowAmp: 0.22, flowScale: 1.3, swirl: 0, attract: 0, decay: 0.952, nebula: 0.68,
+    moteEnergy: 0.78, web: 0, mitosis: 0, attention: 0, core: 0, dimOthers: 0,
     cool: hex(0x27436b), live: BLUE, hot: hex(0x7fa3c8),
-    warm: 0, exposure: 1.0,
+    warm: 0, exposure: 1.1,
     state: "SEARCHING",
     kicker: "AKAL — the infrastructure for customer acquisition",
     headline: "Most of the market is noise.",

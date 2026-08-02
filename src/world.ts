@@ -238,7 +238,7 @@ export class World {
       if (Math.abs(x) > A || Math.abs(y) > 1) { x = (Math.random() * 2 - 1) * A; y = Math.random() * 2 - 1; }
       this.aNorm[i * 2] = x / A; this.aNorm[i * 2 + 1] = y;
       this.aPos[i * 3] = x; this.aPos[i * 3 + 1] = y;
-      this.aAlpha[i] = (0.25 + 0.3 * Math.sin(t * 0.7 + i * 2.4)) * (1 - sc.dimOthers) * (1 - sc.core);
+      this.aAlpha[i] = (0.16 + 0.2 * Math.sin(t * 0.7 + i * 2.4)) * (1 - sc.dimOthers) * (1 - sc.core);
     }
 
     // ---- nodes + mitosis ----

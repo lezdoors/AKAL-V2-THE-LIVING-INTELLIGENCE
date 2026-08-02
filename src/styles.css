@@ -18,7 +18,7 @@ body {
   margin: 0;
   background: var(--ground);
   color: var(--ink);
-  font-family: "Syne", system-ui, sans-serif;
+  font-family: "Space Grotesk", system-ui, sans-serif;
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
@@ -88,7 +88,7 @@ body {
 
 .scene-copy {
   position: absolute;
-  max-width: 36rem;
+  max-width: 42rem;
   opacity: 0;
   visibility: hidden;
   padding: 2rem 2.2rem;
@@ -113,10 +113,10 @@ body {
 .kicker { color: var(--muted); margin: 0 0 1rem; }
 
 .headline {
-  font-weight: 800;
-  font-size: clamp(2rem, 5.2vw, 4.2rem);
-  line-height: 1.04;
-  letter-spacing: -0.015em;
+  font-weight: 700;
+  font-size: clamp(2.2rem, 4.4vw, 3.9rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
   margin: 0;
   color: var(--ink);
 }
@@ -164,7 +164,7 @@ body {
   border: 0;
   border-radius: 999px;
   padding: 0.75rem 1.5rem;
-  font: 700 14px "Syne", sans-serif;
+  font: 700 14px "Space Grotesk", sans-serif;
   letter-spacing: 0.02em;
   cursor: pointer;
   transition: transform 0.15s, box-shadow 0.25s;

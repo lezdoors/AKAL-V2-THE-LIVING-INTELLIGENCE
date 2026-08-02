@@ -3,8 +3,8 @@
  * Scroll is time: the visitor carries the mind through its eight states.
  * When they stop, it keeps thinking. When they ask, it attends.
  */
-import "@fontsource/syne/700.css";
-import "@fontsource/syne/800.css";
+import "@fontsource/space-grotesk/500.css";
+import "@fontsource/space-grotesk/700.css";
 import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
 import "./styles.css";
@@ -21,7 +21,7 @@ const coarse = matchMedia("(pointer: coarse)").matches;
 const small = Math.min(innerWidth, innerHeight) < 720;
 const mobile = coarse || small;
 
-const world = new World({ motes: mobile ? 1400 : 3000, anomalies: mobile ? 12 : 26 });
+const world = new World({ motes: mobile ? 1400 : 3000, anomalies: mobile ? 8 : 14 });
 const canvas = document.getElementById("world") as HTMLCanvasElement;
 const gl = new WorldGL(canvas, world);
 const ui = new UI(world, reduced);
